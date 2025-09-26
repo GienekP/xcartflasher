@@ -171,7 +171,7 @@ MENULOP	lda #$00
 AGAIN	jsr SHOWIMG
 		jsr CARTOFF
 		lda MODVER
-@		bne	@-		
+@		bne	@-
 		rts
 ;----------------
 SETPLCO	sta COLPM0S
@@ -476,13 +476,13 @@ DETECT	ldx #$00
 		stx MFDTCT
 		jsr SETBANK
 		lda #$AA
-		sta $82AA	; 1st AA->AAA
+		sta $8AAA	; 1st AA->AAA
 		lda #$55
 		sta $8555	; 2nd 55->555
 		lda #$90
-		sta $82AA	; 3rd 90->AAA
-		lda $8101
-		cmp #$D8
+		sta $8AAA	; 3rd 90->AAA
+		lda $8001	; A0=1 A1=0 A9=0
+		cmp #$D8	; 0xD8 (M29F160FB)
 		bne @+
 		inc MFDTCT
 @		lda #$F0
@@ -490,13 +490,13 @@ DETECT	ldx #$00
 		ldx #$80
 		jsr SETBANK
 		lda #$AA
-		sta $82AA	; 1st AA->AAA
+		sta $8AAA	; 1st AA->AAA
 		lda #$55
 		sta $8555	; 2nd 55->555
 		lda #$90
-		sta $82AA	; 3rd 90->AAA
-		lda $8101
-		cmp #$D8
+		sta $8AAA	; 3rd 90->AAA
+		lda $8001	; A0=1 A1=0 A9=0
+		cmp #$D8	; 0xD8 (M29F160FB)
 		bne @+
 		inc MFDTCT
 @		lda #$F0
@@ -512,17 +512,17 @@ DETECT	ldx #$00
 		rts
 ;----------------
 FRMTSEQ	lda #$AA
-		sta $82AA	; 1st AA->AAA
+		sta $8AAA	; 1st AA->AAA
 		lda #$55
 		sta $8555	; 2nd 55->555
 		lda #$80
-		sta $82AA	; 3rd 80->AAA
+		sta $8AAA	; 3rd 80->AAA
 		lda #$AA
-		sta $82AA	; 4th AA->AAA
+		sta $8AAA	; 4th AA->AAA
 		lda #$55
 		sta $8555	; 5tg 55->555
 		lda #$10
-		sta $82AA	; 6th 10->AAA
+		sta $8AAA	; 6th 10->AAA
 		rts
 ;----------------		
 FRMTWT	lda #$1D
@@ -577,11 +577,11 @@ SAVELP	ldy #$00
 		and #$80
 		sta $D500	; ADDR=0..0
 		lda #$AA
-		sta $82AA	; 1st AA->AAA
+		sta $8AAA	; 1st AA->AAA
 		lda #$55
 		sta $8555	; 2nd 55->555
 		lda #$A0
-		sta $82AA	; 3rd A0->AAA	
+		sta $8AAA	; 3rd A0->AAA	
 		txa	
 		sta $D500
 		sta	$D500,x
@@ -707,7 +707,7 @@ MRKR1	:192 dta $00
 		:64 dta $FF
 MRKR2	:192 dta $00
 		:64 dta $FF
-MRKR3	:98 dta $00		
+MRKR3	:99 dta $00		
 ;-----------------------------------------------------------------------
 		INI RUNAD		
 ;-----------------------------------------------------------------------
