@@ -171,7 +171,7 @@ MENULOP	lda #$00
 AGAIN	jsr SHOWIMG
 		jsr CARTOFF
 		lda MODVER
-@		bne	@-
+@		bne	@-		; FORCE MODE
 		rts
 ;----------------
 SETPLCO	sta COLPM0S
@@ -449,9 +449,16 @@ ONLYVFI	lda #$36
 		sta TMP+3		
 VFML	ldy #$00
 @		lda (TMP+2),y
+		; FIRST
+		cmp (TMP),y
+		beq VFOK
+		; SECOND
+		cmp (TMP),y
+		beq VFOK
+		; Third
 		cmp (TMP),y
 		bne VFERROR
-		iny
+VFOK	iny
 		bne @-
 		inc TMP+3
 		inc TMP+1
